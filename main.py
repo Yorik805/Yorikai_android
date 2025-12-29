@@ -47,14 +47,21 @@ async def call_gemini(request: Request):
     user_prompt = data.get("prompt", "")
 
     try:
-        # Streaming response from Gemini
-        full_reply = ""
-        response_stream = model.generate_content(user_prompt, stream=True)
-        async for chunk in response_stream:
-            if chunk.text:
-                full_reply += chunk.text
+        # Direct call (no async streaming)
+        response = model.generate_content(user_prompt)
+        full_reply = response.text  # Gemini returns JSON string
     except Exception as e:
         return {"error": str(e)}
+
+    # Forward Gemini JSON as-is
+    import json
+    try:
+        json_reply = json.loads(full_reply)
+    except Exception:
+        json_reply = {"error": "Invalid JSON from Gemini", "raw": full_reply}
+
+    return json_reply
+
 
     # Gemini itself is sending JSON, so forward it as-is
     # Parse string to dict if necessary
