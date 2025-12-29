@@ -84,3 +84,8 @@ async def call_gemini(request: Request):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=1234)
+
+    # ------------------------ TABLET MODE ------------------------
+    # Uncomment the lines below when running locally on your tablet
+    # import uvicorn
+    # uvicorn.run(app, host="0.0.0.0", port=1234)
