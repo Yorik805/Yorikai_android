@@ -1,9 +1,10 @@
-# main.py
+  # main.py
 from fastapi import FastAPI, Request
 import google.generativeai as genai
 import random
 import asyncio
 import httpx
+import os
 
 SYSTEM_INSTRUCTIONS = """
 You are a personal AI assistant used by a user for studying, chatting, and help.
@@ -18,7 +19,8 @@ You are a personal AI assistant used by a user for studying, chatting, and help.
 """
 
 # Configure Gemini
-genai.configure(api_key="AIzaSyCn7ScApahWSAASklQE_AYi2Xv2ZMs-ZsY")
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
 model = genai.GenerativeModel(
     'gemini-2.5-flash',
     system_instruction=SYSTEM_INSTRUCTIONS
