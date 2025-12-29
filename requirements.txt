@@ -1,4 +1,4 @@
 fastapi==0.127.0
 uvicorn==0.40.0
 google-generativeai==0.8.6
-httpx>=1.0.0
+httpx>=1.0.dev3
